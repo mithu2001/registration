@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import "./App.css";
+import Register from "./Components/Register";
+import Greet from "./Components/Greet";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+constructor(props) {
+  super(props);
+
+  this.state = {
+     isRegister: false,
+     name:null,
+     email:null,
+     password:null,
+  }
 }
 
-export default App;
+registerationHandler = (event) => {
+  
+event.preventDefault();//it stops the reloading of a form
+const name = event.target.name.value;
+const email = event.target.email.value;
+const password = event.target.password.value;
+this.setState({name, email, password, isRegister:true})
+}
+
+  render() {
+    return (
+      <div>
+        {this.state.isRegister?(<Greet username = {this.state.name} useremail = {this.state.email}/>):(<Register submit = {this.registerationHandler}/>)}
+      </div>
+    )
+  }
+}
+
+export default App
